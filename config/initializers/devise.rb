@@ -9,6 +9,8 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  APP_ID = Rails.application.credentials["app_id"]
+  APP_SECRET = Rails.application.credentials["app_secret"]
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -25,7 +27,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  config.omniauth :google_oauth2, "1078754483753-k7m3ms1chern0joovieopqaimdcg4vrj.apps.googleusercontent.com", "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"
+  config.omniauth :google_oauth2, APP_ID, APP_SECRET
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
