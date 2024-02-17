@@ -1,0 +1,7 @@
+<%= link_to "--s-", destroy_user_session_path, 'data-turbo-method': :delete %>
+<%= link_to "--p-", employee_path(current_user.id), method: :get %>
+<div class="flex flex-col gap-2">
+<% User.all.each do |user| %>
+<%= button_to user.full_name, settings_path, method: :post, params: { user_id: user.user_id} %>
+<% end%>
+</div>

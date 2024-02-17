@@ -70,3 +70,6 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem "tailwindcss-rails", "~> 2.3"
+gem "pg", "~> 1.1"
+gem 'jwt'

@@ -1,0 +1,11 @@
+<div>
+  <% @conversation.messages.each do |message| %>
+    <%= message.content %>
+  <% end %>
+  <%= form_for Message.new, method: :create do |f| %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field 'conversation_id', value: params[:id] %>
+    <%= f.submit "send", class: ""  %>
+   <% end %>
+</div>
+</div>

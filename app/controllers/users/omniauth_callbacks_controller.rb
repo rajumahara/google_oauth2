@@ -9,17 +9,23 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def google_oauth2
-    Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5"
-    user = User.from_omniauth(auth)
-    Rails.logger.info "auth: #{auth}"
+    data = request.env['omniauth.auth']
+    Rails.logger.info "authrequest: #{data}"
 
-    if user.persisted?
-      sign_out_all_scopes
-      flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-      sign_in_and_redirect user, event: :authentication
+    uid = data['uid']
+    Rails.logger.info "uid: #{uid}"
+    @user = User.find_by(uid: uid)
+    if @user.present?
+      sign_in_and_redirect @user, event: :authentication
     else
-      flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
-      redirect_to new_user_session_path
+      email = data.info.email
+      image = data.info.image
+      full_name = data.info.name
+      Rails.logger.info "user: #{email}"
+      Rails.logger.info "image: #{image} #{auth.provider} #{}"
+      @user = User.create!(email: email, full_name: , password: Devise.friendly_token[0, 20], avatar_url: image, uid: uid, provider: auth.provider)
+      sign_out_all_scopes
+      sign_in_and_redirect @user, event: :authentication
     end
   end
   
@@ -30,7 +36,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5"
+    Rails.logger.info "error"
   end
 
   # More info at:

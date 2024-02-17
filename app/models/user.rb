@@ -5,11 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
-  def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.avatar_url = auth.info.image
-    end
-  end
+
+  has_many :user_conversations
+  has_many :conversations, through: :user_conversations
+  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender', inverse_of: :sender_user
+  has_many :received_messages, class_name: 'Message', foreign_key: 'receiver', inverse_of: :receiver_user
 end

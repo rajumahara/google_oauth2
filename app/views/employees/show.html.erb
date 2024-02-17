@@ -1,0 +1,6 @@
+<div>
+  <%= form_for @user, url: employee_path(@user), data: { controller: "employee" }, method: :patch do |f| %>
+    <%= f.text_field :full_name %>
+    <%= f.submit "Update", class: ""  %>
+  <% end %>
+</div>
