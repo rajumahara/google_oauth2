@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  layout 'chatzone'
   def home
   end
 

@@ -7,9 +7,13 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.turbo.min.js"></script>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
-    <%= yield %>
+  <body class="h-screen">
+    <%= render partial: 'layouts/header' %>
+    <div class="pt-14 h-full">
+      <%= yield %>
+    </div>
   </body>
 </html>
